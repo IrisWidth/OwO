@@ -21,13 +21,6 @@
         const res = await fetch('https://api.ipify.org?format=json');
         const ipData = await res.json();
 
-        // Dane z przeglądarki
-        const browserData = {
-          userAgent: navigator.userAgent,
-          language: navigator.language,
-          screen: {
-            width: screen.width,
-            height: screen.height
           }
         };
 
@@ -38,14 +31,7 @@
 
         output.innerHTML = `<pre>${JSON.stringify(fullData, null, 2)}</pre>`;
 
-        // (Opcjonalnie) Wyślij dane na Twój serwer:
-        /*
-        await fetch("https://twoj-serwer.pl/api/save", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(fullData)
-        });
-        */
+      
       } catch (err) {
         output.textContent = 'Błąd przy pobieraniu danych: ' + err.message;
       }
