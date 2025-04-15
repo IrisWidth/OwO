@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Twoje dane</title>
+  <style>
+    body { font-family: sans-serif; padding: 2rem; background: #f0f0f0; }
+    #output { background: white; padding: 1rem; border-radius: 10px; }
+  </style>
+</head>
+<body>
+  <h1>Wykrywanie danych komputera</h1>
+  <div id="output">Pobieranie danych...</div>
+
+  <script>
+    async function getIPInfo() {
+      const output = document.getElementById('output');
+
+      try {
+        // Pobieranie IP z zewnętrznego API
+        const res = await fetch('https://api.ipify.org?format=json');
+        const ipData = await res.json();
+
+        // Dane z przeglądarki
+        const browserData = {
+          userAgent: navigator.userAgent,
+          language: navigator.language,
+          screen: {
+            width: screen.width,
+            height: screen.height
+          }
+        };
+
+        const fullData = {
+          ip: ipData.ip,
+          ...browserData
+        };
+
+        output.innerHTML = `<pre>${JSON.stringify(fullData, null, 2)}</pre>`;
+
+        // (Opcjonalnie) Wyślij dane na Twój serwer:
+        /*
+        await fetch("https://twoj-serwer.pl/api/save", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(fullData)
+        });
+        */
+      } catch (err) {
+        output.textContent = 'Błąd przy pobieraniu danych: ' + err.message;
+      }
+    }
+
+    getIPInfo();
+  </script>
+</body>
+</html>
