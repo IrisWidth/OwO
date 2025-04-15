@@ -2,42 +2,31 @@
 <html lang="pl">
 <head>
   <meta charset="UTF-8">
-  <title>Twoje dane</title>
+  <title>Twój adres IP</title>
   <style>
     body { font-family: sans-serif; padding: 2rem; background: #f0f0f0; }
     #output { background: white; padding: 1rem; border-radius: 10px; }
   </style>
 </head>
 <body>
-  <h1>Wykrywanie danych komputera</h1>
-  <div id="output">Pobieranie danych...</div>
+  <h1>Twój adres IP</h1>
+  <div id="output">Pobieranie IP...</div>
 
   <script>
-    async function getIPInfo() {
+    async function getIPOnly() {
       const output = document.getElementById('output');
 
       try {
-        // Pobieranie IP z zewnętrznego API
         const res = await fetch('https://api.ipify.org?format=json');
         const ipData = await res.json();
 
-          }
-        };
-
-        const fullData = {
-          ip: ipData.ip,
-          ...browserData
-        };
-
-        output.innerHTML = `<pre>${JSON.stringify(fullData, null, 2)}</pre>`;
-
-      
+        output.innerHTML = `<strong>Adres IP:</strong> ${ipData.ip}`;
       } catch (err) {
-        output.textContent = 'Błąd przy pobieraniu danych: ' + err.message;
+        output.textContent = 'Błąd przy pobieraniu IP: ' + err.message;
       }
     }
 
-    getIPInfo();
+    getIPOnly();
   </script>
 </body>
 </html>
