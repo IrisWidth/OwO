@@ -1,4 +1,2 @@
 #!/bin/bash
-git add index.html
-git commit "Dodano stronę do zbierania IP"
-git push
+curl https://api.ipify.org?format=json
